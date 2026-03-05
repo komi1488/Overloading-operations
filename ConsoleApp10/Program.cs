@@ -32,6 +32,7 @@ namespace MatrixCalculatorApp {
         }
       }
     }
+
     public double this[int rowIndex, int columnIndex] {
       get { 
         return _matrix[rowIndex, columnIndex]; 
@@ -280,6 +281,7 @@ namespace MatrixCalculatorApp {
       return copiedMatrix;
     }
   }
+
   class Program {
 
     static void Main() {
