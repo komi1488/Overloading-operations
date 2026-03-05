@@ -14,6 +14,7 @@ namespace MatrixCalculatorApp {
 
     private double[,] _matrix;
     public int Size { get; }
+    private static readonly Random _random = new Random();
 
     public SquareMatrix(int size) {
       if (size <= 0) { 
@@ -24,16 +25,13 @@ namespace MatrixCalculatorApp {
       _matrix = new double[size, size];
     }
 
-    public SquareMatrix(int size, int minValue, int maxValue) : this(size) {
-      Random randomGenerator = new Random();
-
+    public SquareMatrix(int size, int minValue, int maxValue) : this(size) { 
       for (int rowIndex = 0; rowIndex < size; ++rowIndex) { 
         for (int columnIndex = 0; columnIndex < size; ++columnIndex) { 
-          _matrix[rowIndex, columnIndex] = randomGenerator.Next(minValue, maxValue);
+          _matrix[rowIndex, columnIndex] = _random.Next(minValue, maxValue);
         }
       }
     }
-
     public double this[int rowIndex, int columnIndex] {
       get { 
         return _matrix[rowIndex, columnIndex]; 
