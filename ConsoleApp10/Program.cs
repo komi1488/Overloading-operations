@@ -150,6 +150,7 @@ namespace MatrixCalculatorApp {
 
       return inverseMatrix;
     }
+
     public static SquareMatrix operator + (SquareMatrix leftMatrix, SquareMatrix rightMatrix) {
 
       if (leftMatrix.Size != rightMatrix.Size) { 
@@ -200,6 +201,16 @@ namespace MatrixCalculatorApp {
       return leftMatrix.Determinant() < rightMatrix.Determinant();
     }
 
+    public static bool operator >= (SquareMatrix leftMatrix, SquareMatrix rightMatrix) {
+
+      return leftMatrix.Determinant() >= rightMatrix.Determinant();
+    }
+
+    public static bool operator <= (SquareMatrix leftMatrix, SquareMatrix rightMatrix) {
+
+      return leftMatrix.Determinant() <= rightMatrix.Determinant();
+    }
+
     public static bool operator == (SquareMatrix leftMatrix, SquareMatrix rightMatrix) {
 
       return leftMatrix.Equals(rightMatrix);
@@ -210,16 +221,35 @@ namespace MatrixCalculatorApp {
       return !leftMatrix.Equals(rightMatrix);
     }
 
+    public static implicit operator SquareMatrix(double value) {
+
+      SquareMatrix matrix;
+      matrix = new SquareMatrix(1);
+
+      matrix[0, 0] = value;
+
+      return matrix;
+    }
+
+    public static bool operator true(SquareMatrix matrix) {
+      return matrix.Determinant() != 0;
+    }
+
+    public static bool operator false(SquareMatrix matrix) {
+      return matrix.Determinant() == 0;
+    }
+
     public override bool Equals(object obj) {
-
+       if (obj == null) {
+        return false;
+      }
       SquareMatrix otherMatrix = obj as SquareMatrix;
-
       if (otherMatrix == null || Size != otherMatrix.Size) { 
         return false;
       }
+
       for (int rowIndex = 0; rowIndex < Size; ++rowIndex) {
         for (int columnIndex = 0; columnIndex < Size; ++columnIndex) {
-
           if (_matrix[rowIndex, columnIndex] != otherMatrix[rowIndex, columnIndex]) { 
             return false;
           }
@@ -252,7 +282,6 @@ namespace MatrixCalculatorApp {
       return copiedMatrix;
     }
   }
-
   class Program {
 
     static void Main() {
@@ -274,6 +303,15 @@ namespace MatrixCalculatorApp {
         Console.WriteLine($"Product: \n{firstMatrix * secondMatrix}");
 
         Console.WriteLine($"Determinant: \n{firstMatrix.Determinant()}");
+
+        if (firstMatrix >= secondMatrix) { 
+          Console.WriteLine("First matrix determinant is greater or equal");
+        }
+
+        double determinantValue;
+        determinantValue = firstMatrix.Determinant();
+
+        Console.WriteLine("Determinant via cast: " + determinantValue);
       } catch (Exception exception) {
         Console.WriteLine("Error: " + exception.Message);
       }
