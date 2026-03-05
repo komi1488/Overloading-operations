@@ -220,6 +220,10 @@ namespace MatrixCalculatorApp {
       return !leftMatrix.Equals(rightMatrix);
     }
 
+    public static explicit operator double(SquareMatrix matrix) { 
+      return matrix.Determinant();
+    }
+      
     public static implicit operator SquareMatrix(double value) {
 
       SquareMatrix matrix;
@@ -309,7 +313,7 @@ namespace MatrixCalculatorApp {
         }
 
         double determinantValue;
-        determinantValue = firstMatrix.Determinant();
+        determinantValue = (double)firstMatrix;
 
         Console.WriteLine("Determinant via cast: " + determinantValue);
       } catch (Exception exception) {
