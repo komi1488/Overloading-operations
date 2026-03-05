@@ -142,7 +142,6 @@ namespace MatrixCalculatorApp {
           minorMatrix = GetMinorMatrix(_matrix, rowIndex, columnIndex);
           cofactorValue = Math.Pow(-1, rowIndex + columnIndex) * CalculateDeterminant(minorMatrix);
 
-
           inverseMatrix[columnIndex, rowIndex] = cofactorValue / determinantValue;
         }
       }
@@ -221,6 +220,7 @@ namespace MatrixCalculatorApp {
     }
 
     public static explicit operator double(SquareMatrix matrix) { 
+
       return matrix.Determinant();
     }
       
@@ -235,17 +235,21 @@ namespace MatrixCalculatorApp {
     }
 
     public static bool operator true(SquareMatrix matrix) {
+
       return matrix.Determinant() != 0;
     }
 
     public static bool operator false(SquareMatrix matrix) {
+
       return matrix.Determinant() == 0;
     }
 
     public override bool Equals(object obj) {
+
        if (obj == null) {
         return false;
       }
+
       SquareMatrix otherMatrix = obj as SquareMatrix;
       if (otherMatrix == null || Size != otherMatrix.Size) { 
         return false;
@@ -263,10 +267,12 @@ namespace MatrixCalculatorApp {
     }
 
     public override int GetHashCode() {
+
       return Determinant().GetHashCode();
     }
 
     public int CompareTo(SquareMatrix otherMatrix) {
+
       return Determinant().CompareTo(otherMatrix.Determinant());
     }
 
